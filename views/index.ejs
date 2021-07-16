@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' href='/stylesheets/style.css' /> 
+    <link rel="manifest" href="/manifest.json">
+    <!-- <script type="module" src="/pwabuilder-sw-register.js"></script> -->
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <!-- <p>Welcome to <%= title %></p> -->
+
+    <% if (login) { %>
+    <p> Welcome User <%= userNum %> </p>
+    
+    
+
+    <script>
+      function deleteAllCookies() {
+        var cookies = document.cookie.split(";");
+
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i];
+            var eqPos = cookie.indexOf("=");
+            var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+        }
+        location.reload();
+      } 
+
+      function deleteAllCookies2() {
+        document.cookie.split(";")
+        .forEach(function(c) { document.cookie = c
+          .replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date()
+          .toUTCString() + ";path=/"); });
+      }
+
+      function test() {
+        console.log('test');
+      }
+    </script>
+
+
+    <button onclick='deleteAllCookies()'>Log out</button>
+    <% } %>
+
+    <% if (!(login)) { %>
+      <!-- <a href="./users">Click here to sign in</a> -->
+      <button onclick="location.href='./users'" type="button">Sign In</button>
+    <% } %>
+
+  </body>
+</html>

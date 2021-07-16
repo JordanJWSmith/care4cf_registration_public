@@ -1,0 +1,17 @@
+{
+    "lang": "en-us",
+    "name": "CARE4CF REGISTRATION",
+    "short_name": "CARE4CF_reg",
+    "description": "A registration site for CARE4CF",
+    "start_url": "/",
+    "background_color": "#2f3d58",
+    "theme_color": "#2f3d58",        
+    "orientation": "any",
+    "display": "standalone",
+    "icons": [
+        {
+            "src": "/images/icon512.png",
+            "sizes": "512x512"
+        }
+    ]
+}
