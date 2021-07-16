@@ -4,7 +4,6 @@ var db = require('../database');
 const { requiresAuth } = require('express-openid-connect');
 
 
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
