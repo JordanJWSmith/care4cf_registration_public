@@ -7,15 +7,67 @@
     <link rel="manifest" href="/manifest.json">
     <!-- <script type="module" src="/pwabuilder-sw-register.js"></script> -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaauth/dist/pwa-auth.js"></script>
+    
+
 
   </head>
 
 
   <body>  
+
+    <h1><%= title %></h1>
+    <p>Name: <%= fName %> <%= lName %></p>
+    <p>Email: <%= email %></p>
+
+    <div class="user-detail" id="user-form">
+        <h2>Tell us more</h2>
+        
+        <p id="details"></p>
+        <form action="/new" method="POST">
+            <!-- <label>Full Name</label>
+            <input type="text" placeholder="Enter First Name" name="fName" required>
+            <input type="text" placeholder="Enter Surname" name="lName" required> -->
+            <!-- <br>
+            <label>Email Address</label>
+            <input type="email" placeholder="Enter Email Address" name="email" required> -->
+            <br>
+            <label>Date of Birth</label>
+            <input type="date" name="doB" required>
+            <br>
+            <label>NHS Number</label> 
+            <input type="text" placeholder="Enter NHS Number" name="nhsNumber" required>
+            <br>
+            <label>Gender</label>
+            <label>M</label>
+            <input type="radio" name="gender" value="M">
+            <label>F</label>
+            <input type="radio" name="gender" value="F">
+            <br>
+            <label>Address 1</label>
+            <input type="text" placeholder="Enter Street Address" name="address1" required>
+            <br>
+            <label>Address 2</label>
+            <input type="text" placeholder="Enter Address Line 2" name="address2" required>
+            <br>
+            <label>City</label>
+            <input type="city" placeholder="Enter City" name="townCity" required>
+            <br>
+            <label>Postcode</label>
+            <input type="text" placeholder="Enter Postcode" name="postCode" required>
+            <br>
+            <br>
+            <input type='hidden' name='fName' value=<%= fName %>>
+            <input type='hidden' name='lName' value=<%= lName %>>
+            <input type='hidden' name='email' value=<%= email %>>
+            <input type='hidden' name='msalToken' value=<%= token %>>
+            <a id="lName"></a>
+            <a id="email"></a> -->
+            <button type="submit">Submit</button>
+    </div> 
     
-    <% if (!(login)) { %>
     
-        <pwa-auth id="auth" style="display: block"
+    
+        <!-- <pwa-auth id="auth" style="display: block"
             microsoftkey="9b12a7f3-2f91-4e05-8bc2-2a1bc3c5a710">
         </pwa-auth>
 
@@ -54,37 +106,36 @@
 
                 }
             });
-        </script>     
-    <% } %>  
+        </script>      -->
+     
 
-    <!-- <p> logged in: <%= login %> </p>
-    <p> Reason: <%= reason %> </p> -->
+    
 
-    <% if (login) { %>
-        <p>You are already logged in. Redirecting...</p>
+    
+        <!-- <p>You are already logged in. Redirecting...</p>
         <script>
             setTimeout(function () {
                 window.location.href = "/"; //will redirect to your blog page (an ex: blog.html)
             }  , 2000);
-        </script>
-    <% } %>
+        </script> -->
+    
 
     <!-- <form action="/users/check" method="POST" name="checker">
         <a id="check"></a>
     </form> -->
 
-    <div class="user-detail" id="user-form" style='display: none'>
+    <!-- <div class="user-detail" id="user-form" style='display: none'>
         <h2>Tell us more</h2>
         
         <p id="details"></p>
-        <form action="/users/create" method="POST">
+        <form action="/users/create" method="POST"> -->
             <!-- <label>Full Name</label> -->
             <!-- <input type="text" placeholder="Enter First Name" name="fName" required>
             <input type="text" placeholder="Enter Surname" name="lName" required> -->
             <!-- <br>
             <label>Email Address</label>
             <input type="email" placeholder="Enter Email Address" name="email" required> -->
-            <br>
+            <!-- <br>
             <label>Date of Birth</label>
             <input type="date" name="doB" required>
             <br>
@@ -114,6 +165,6 @@
             <a id="lName"></a>
             <a id="email"></a>
             <button type="submit">Submit</button>
-    </div>
+    </div> -->
 
   </body>
