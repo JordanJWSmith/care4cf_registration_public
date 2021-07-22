@@ -33,6 +33,7 @@ function readData(){
                 console.log('Row: ' + JSON.stringify(results[i]));
             }
             console.log('Done.');
+            return results;
         })
     conn.end(
         function (err) { 

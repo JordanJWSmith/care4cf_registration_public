@@ -9,6 +9,24 @@ var conn = mysql.createPool({
     ssl: true
 }); 
 
+// conn.readData = function readData(query){
+//     conn.query(query, 
+//         function (err, results, fields) {
+//             if (err) throw err;
+//             else console.log('Selected ' + results.length + ' row(s).');
+//             for (i = 0; i < results.length; i++) {
+//                 console.log('Row: ' + JSON.stringify(results[i]));
+//             }
+//             console.log('Done.');
+//             return results;
+//         })
+//     conn.end(
+//         function (err) { 
+//             if (err) throw err;
+//             else  console.log('Closing connection.') 
+//     });
+// };
+
 // conn.connect(function(err) {
 //   if (err) throw err;
 //   console.log('Database is connected successfully !');
