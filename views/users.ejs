@@ -8,6 +8,7 @@
     <!-- <script type="module" src="/pwabuilder-sw-register.js"></script> -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaauth/dist/pwa-auth.js"></script>
     
+    
 
 
   </head>
@@ -19,11 +20,38 @@
     <p>Name: <%= fName %> <%= lName %></p>
     <p>Email: <%= email %></p>
 
+    <script>
+        function validatePostcode(postcode) {
+            postcode = postcode.replace(/\s/g, "");
+            const regex = /^[A-Z]{1,2}[0-9]{1,2}[A-Z]{0,1} ?[0-9][A-Z]{2}$/i;
+            console.log(regex.test(postcode));
+            return regex.test(postcode);
+        }
+    </script>
+    
+    <script>
+
+        function validateForm() {
+            let nhsNum = document.forms["newUser"]["nhsNumber"].value;
+            let postCode = document.forms["newUser"]["postCode"].value;
+
+            if ((isNaN(nhsNum)) || (nhsNum.toString().length < 10)) {
+                alert("NHS number should be 10-digits long");
+                return false;
+            }
+            if (!validatePostcode(postCode)) {
+                alert("Postcode invalid");
+                return false;
+            }
+        } 
+
+    </script>
+
     <div class="user-detail" id="user-form">
         <h2>Tell us more</h2>
         
         <p id="details"></p>
-        <form action="/new" method="POST">
+        <form id="newUser" onsubmit="return validateForm()" action="/loginTest/new" method="POST">
             <!-- <label>Full Name</label>
             <input type="text" placeholder="Enter First Name" name="fName" required>
             <input type="text" placeholder="Enter Surname" name="lName" required> -->
@@ -31,28 +59,28 @@
             <label>Email Address</label>
             <input type="email" placeholder="Enter Email Address" name="email" required> -->
             <br>
-            <label>Date of Birth</label>
+            <label>Date of Birth*</label>
             <input type="date" name="doB" required>
             <br>
-            <label>NHS Number</label> 
+            <label>NHS Number*</label> 
             <input type="text" placeholder="Enter NHS Number" name="nhsNumber" required>
             <br>
-            <label>Gender</label>
-            <label>M</label>
+            <label>Gender*</label>
+            <label>Male</label>
             <input type="radio" name="gender" value="M">
-            <label>F</label>
+            <label>Female</label>
             <input type="radio" name="gender" value="F">
             <br>
-            <label>Address 1</label>
+            <label>Address 1*</label>
             <input type="text" placeholder="Enter Street Address" name="address1" required>
             <br>
-            <label>Address 2</label>
-            <input type="text" placeholder="Enter Address Line 2" name="address2" required>
+            <label>Address 2*</label>
+            <input type="text" placeholder="Enter Address Line 2" name="address2">
             <br>
-            <label>City</label>
+            <label>City*</label>
             <input type="city" placeholder="Enter City" name="townCity" required>
             <br>
-            <label>Postcode</label>
+            <label>Postcode*</label>
             <input type="text" placeholder="Enter Postcode" name="postCode" required>
             <br>
             <br>
@@ -60,8 +88,7 @@
             <input type='hidden' name='lName' value=<%= lName %>>
             <input type='hidden' name='email' value=<%= email %>>
             <input type='hidden' name='msalToken' value=<%= token %>>
-            <a id="lName"></a>
-            <a id="email"></a> -->
+            
             <button type="submit">Submit</button>
     </div> 
     
