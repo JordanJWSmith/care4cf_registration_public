@@ -6,36 +6,37 @@ describe('#login()', function() {
     var args = Array.prototype.slice.call(arguments);
 
     context('with non-string arguments', function() {
-        it('should return false', async function() {
+        it('should return error', async function() {
             expect(
-                await login(1, 2).then(
+                await login(1)
+                .then(
                     function(results) {
-                        return results.logIn
+                        return results
                     }
                 )
-            ).to.be.undefined;
+            ).to.be.false;
         })
     })
 
-    context('with non-existent email', function() {
-        it('should return bool', async function() {
+    context('with non-existent token', function() {
+        it('should return false', async function() {
             expect(
-                await login('testToken12345', 'fake@email.co.uk').then(
+                await login('testToken12345').then(
                     function(results) {
-                        return results.logIn
+                        return results
                     }
                 )
-            ).to.be.undefined;
+            ).to.be.false;
         })
     })
  
 
-    context('with string arguments', function() {
-        it('should return bool', async function() {
+    context('with no arguments', function() {
+        it('should return false', async function() {
             expect(
-                await login('testToken12345', 'ucabjjw@ucl.ac.uk').then(
+                await login().then(
                     function(results) {
-                        return results.logIn
+                        return results
                     }
                 )
             ).to.be.false;

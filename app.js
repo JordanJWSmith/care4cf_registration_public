@@ -3,17 +3,19 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var favicon = require('serve-favicon');
-const { auth } = require('express-openid-connect');
+var favicon = require('serve-favicon'); 
 
-const config = {
-  authRequired: false,
-  auth0Logout: true,
-  secret: 'a long, randomly-generated string stored in env',
-  baseURL: 'http://localhost:3000',
-  clientID: 'C9KKH1AiPUrNUiqVL1nBUGfsMrsyCPyX',
-  issuerBaseURL: 'https://dev-594gtbd6.us.auth0.com'
-};
+// const { auth } = require('express-openid-connect');
+
+// const config = { 
+//   authRequired: false,
+//   auth0Logout: true,
+//   secret: 'a long, randomly-generated string stored in env',
+//   baseURL: 'http://localhost:3000', 
+//   clientID: 'C9KKH1AiPUrNUiqVL1nBUGfsMrsyCPyX',
+//   issuerBaseURL: 'https://dev-594gtbd6.us.auth0.com'
+// };
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -32,7 +34,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
-app.use(auth(config));
+// app.use(auth(config));
 
 
 
@@ -56,8 +58,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.get('/', (req, res) => {
-  res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
-});
+// app.get('/', (req, res) => {
+//   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
+// });
 
 module.exports = app;

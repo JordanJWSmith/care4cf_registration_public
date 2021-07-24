@@ -6,10 +6,12 @@ module.exports = async function(email) {
         return false           
     } else {
 
-        var checkLogin = 'SELECT * FROM users WHERE email = "' + email + '"';
-        var results = await readData(checkLogin);
-        console.log('results:', results);
-        console.log(results.length > 0);
+        // var checkLogin = 'SELECT * FROM users WHERE email = "' + email + '"';
+        var checkLogin =  "SELECT * FROM users WHERE email = ?";
+        var data = [email];
+        var results = await readData(checkLogin, data);
+        // console.log('userExists results:', results);
+        // console.log('userExists check: ', results.length > 0);
 
         return { 
            logIn: (results.length > 0),

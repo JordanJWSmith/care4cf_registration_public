@@ -10,86 +10,11 @@
   </head>
   <body>
     <h1><%= title %></h1>
-
-    <% if (!(login)) { %>
-      <h1>Not logged in</h1>
-
-      <pwa-auth 
-      id="auth" style="display: block" microsoftkey="9b12a7f3-2f91-4e05-8bc2-2a1bc3c5a710">
-    </pwa-auth>
+    <p> You have registered as <%= fName %>.</p>
 
     <script>
-      const pwaAuth = document.querySelector("pwa-auth");
-      pwaAuth.addEventListener("signin-completed", ev => {
-          const signIn = ev.detail;
-          if (signIn.error) {
-              console.error("Sign in failed", signIn.error);
-          } else {
-            var email = signIn.email;
-            var name = signIn.name;
-            var token = signIn.providerData.accessToken;
-            // console.log("Access token: ", token);
-            // console.log("Email: ", email);
-            // console.log("Name: ", name);
-            // console.log("providerData: ", signIn.providerData);
-            document.cookie="accessToken=" + token;
-            document.getElementById("email").innerHTML += "<input type='hidden' name='email' value='" + email + "'>";
-            document.getElementById("token").innerHTML += "<input type='hidden' name='token' value='" + token + "'>";
-            document.getElementById("name").innerHTML += "<input type='hidden' name='name' value='" + name + "'>";
-            document.forms['checker'].submit();
-
-          }
-        })
-    </script>
-
-<form action="/verify" method="POST" name="checker">
-  <a id="email"></a>
-  <a id="token"></a>
-  <a id="name"></a>
-</form>
-
-
-
-
-    <% } else { %>
-      <h1> Welcome <%= name %> </h1>
-      <p> You have registered for CARE4CF. </p>
-
-      <script>
-        function deleteAllCookies() {
-          var cookies = document.cookie.split(";");
-  
-          for (var i = 0; i < cookies.length; i++) {
-              var cookie = cookies[i];
-              var eqPos = cookie.indexOf("=");
-              var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-              document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-          }
-          location.reload();
-        } 
-  
-        
-      </script>
-
-
-      <button onclick='deleteAllCookies()'>Log out</button>
-
-
-      <% } %>
-
-    
-
-
-    <!-- <p>Welcome to <%= title %></p> -->
-
-    
-    
-    
-
-    <!-- <script>
       function deleteAllCookies() {
         var cookies = document.cookie.split(";");
-
         for (var i = 0; i < cookies.length; i++) {
             var cookie = cookies[i];
             var eqPos = cookie.indexOf("=");
@@ -98,27 +23,10 @@
         }
         location.reload();
       } 
+    </script>
 
-      function deleteAllCookies2() {
-        document.cookie.split(";")
-        .forEach(function(c) { document.cookie = c
-          .replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date()
-          .toUTCString() + ";path=/"); });
-      }
-
-      function test() {
-        console.log('test');
-      }
-    </script> -->
-
-
-    <!-- <button onclick='deleteAllCookies()'>Log out</button> -->
-    
+    <button onclick="deleteAllCookies()">Log Out</button>
 
     
-      <!-- <a href="./users">Click here to sign in</a> -->
-      <!-- <button onclick="location.href='./users'" type="button">Sign In</button> -->
-    
-
   </body>
 </html>
