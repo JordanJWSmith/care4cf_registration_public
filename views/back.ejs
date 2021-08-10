@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+    <script>
+        var n = <%- err %>;
+        var date = new Date();
+        date.setTime(date.getTime()+(60*1000));
+        document.cookie = "err=true; expires=" + date.toGMTString();
+        window.history.go(-1);
+        
+    </script>
+</html>

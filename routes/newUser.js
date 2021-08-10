@@ -11,12 +11,16 @@ module.exports = async function(userDetails) {
 
     // var results = await updateRecords(newUser, userDetails);
     // console.log('newUser results:', results);
-    await updateRecords(newUser, userDetails).then(function(results) {
-        console.log('new user results:', results)
-        return true;
-    })
-    .then(function(results) {
-        return true
-    })
+        await updateRecords(newUser, userDetails)
+        .then(function(results) {
+            // console.log('new user results:', results)
+            return true;
+        })
+    
+
+    
+    // .then(function(results) {
+    //     return true
+    // })
     // return true;
 }
