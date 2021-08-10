@@ -1,4 +1,5 @@
 var express = require('express');
+const checkNHSNum = require('./checkNHSNum');
 var router = express.Router();
 var login = require('./login');
 const newUser = require('./newUser');
@@ -22,6 +23,16 @@ router.post('/verify', function(req, res, next) {
     var email = userDetails.email;
     var token = userDetails.token;
     var name = userDetails.name;
+
+    // var nhsNum = req.cookies.
+    // var err = JSON.stringify(req.cookies.err);
+    // res.clearCookie('err');
+
+    // if (err) {
+    //   var err = true;
+    // } else {
+    //   var err = false;
+    // }
     
     userExists(email).then(function(results) {
       // console.log(' userExists results (should be false):',  results)
@@ -32,7 +43,14 @@ router.post('/verify', function(req, res, next) {
         console.log('Create new user');
         var lName = name.split(",")[0].trim();
         var fName = name.split(",")[1].trim();
-        res.render('users', {title: 'Welcome', email: email, lName: lName, fName: fName, token: token});
+        res.render('users', {
+          title: 'Welcome', 
+          email: email, 
+          lName: lName, 
+          fName: fName, 
+          token: token, 
+          // err: err
+        });
       }
     })
     // userExists().then()if userExists, updateToken and redirect to index.
@@ -40,9 +58,31 @@ router.post('/verify', function(req, res, next) {
 
 });
 
-router.post('/new', function(req, res, next) {
+router.post('/new', async function(req, res, next) {
   const userDetails = req.body;
-  newUser(userDetails).then(res.redirect('/'));
+  // console.log('userDetails: ', userDetails);
+  var nhsNum = userDetails.nhsNumber;
+  await checkNHSNum(nhsNum)
+  .then(async function(nhsResults) {
+    // console.log('nhs num check: ', nhsResults);
+    // res.send(JSON.stringify(nhsResults));
+    if (nhsResults) {
+      await newUser(userDetails)
+      .then(res.redirect('/'))
+    } else {
+      res.redirect('/back?n=' + nhsNum);
+      // backURL=req.header('Referer')
+      // res.redirect(backURL);
+
+    }
+  })
+    // newUser(userDetails)
+    // .then(function(results) {
+    //   // console.log('error type: ', typeof results);
+    //   res.redirect('/');
+
+      
+    // })
 })
 
 
