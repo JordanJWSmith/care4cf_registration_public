@@ -13,11 +13,19 @@ module.exports = async function(email) {
         // console.log('userExists results:', results);
         // console.log('userExists check: ', results.length > 0);
 
-        return { 
-           logIn: (results.length > 0),
-           userID: (results[0].userID)
-        //    fName: results[0].fName 
+        if (results.length > 0) {
+            return { 
+                logIn: (results.length > 0),
+                userID: (results[0].userID)
+             //    fName: results[0].fName 
+             }
+        } else {
+            return {
+                logIn: (results.length > 0)
+            }
         }
+
+        
     }
     
 }
