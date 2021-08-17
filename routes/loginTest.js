@@ -34,13 +34,17 @@ router.post('/verify', function(req, res, next) {
     //   var err = false;
     // }
     
-    userExists(email).then(function(results) {
+    userExists(email)
+    .then(function(results) {
       // console.log(' userExists results (should be false):',  results)
       if (results.logIn) {
-        console.log('Updating token');
-        updateToken(token, email).then(res.redirect('/'));
+        // console.log('Updating token');
+        // console.log('userID: ', results.userID);
+        var userID = results.userID;
+        updateToken(token, email, userID)
+        .then(res.redirect('/'));
       } else {
-        console.log('Create new user');
+        // console.log('Create new user');
         var lName = name.split(",")[0].trim();
         var fName = name.split(",")[1].trim();
         res.render('users', {

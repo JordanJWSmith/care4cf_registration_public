@@ -15,6 +15,7 @@ module.exports = async function(email) {
 
         return { 
            logIn: (results.length > 0),
+           userID: (results[0].userID)
         //    fName: results[0].fName 
         }
     }
