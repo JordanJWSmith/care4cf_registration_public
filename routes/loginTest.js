@@ -71,8 +71,16 @@ router.post('/new', async function(req, res, next) {
     // console.log('nhs num check: ', nhsResults);
     // res.send(JSON.stringify(nhsResults));
     if (nhsResults) {
+      // console.log('adding new user');
       await newUser(userDetails)
-      .then(res.redirect('/'))
+      .then(async function(newUserResult) {
+        // console.log('newUserResult: ', newUserResult);
+        // console.log('updating token');
+        await updateToken(userDetails.msalToken, userDetails.email, newUserResult)
+      })
+      .then(function() {
+        res.redirect('/')
+      })
     } else {
       res.redirect('/back?n=' + nhsNum);
       // backURL=req.header('Referer')

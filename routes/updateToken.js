@@ -14,14 +14,17 @@ module.exports = async function(cookieToken, email, userID) {
         // console.log('update results:', results);
 
         var hash = crypto.createHash('md5').update(cookieToken).digest("hex");
-        // console.log('hash: ', hash);
+        console.log('hash: ', hash);
 
         var updateTokenTable = "INSERT IGNORE INTO accesstokens VALUES (?, ?, ?)";
         var updateTokenTableValues = [hash, userID, cookieToken];
-        var updateResults = await readData(updateTokenTable, updateTokenTableValues);
-        // console.log(updateResults);
+        var updateResults = await readData(updateTokenTable, updateTokenTableValues)
+        .then(function(res) {
+            console.log(res)
+        })
+        
 
-        return true
+        return updateResults
         // {
         //    logIn: (results.length > 0),
         //    fName: results[0].fName 
