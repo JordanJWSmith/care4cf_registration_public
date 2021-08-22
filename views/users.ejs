@@ -10,7 +10,8 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <link href="https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
-  
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+
     
     
 
@@ -19,284 +20,253 @@
 
 
   <body>  
+      <div class="container">
 
-    <h1><%= title %></h1>
-    <p>Name: <%= fName %> <%= lName %></p>
-    <p>Email: <%= email %></p>
-
-    <script>
-     
-        // console.log(document.cookie)
-
-        function getCook(cookiename) {
-            // Get name followed by anything except a semicolon
-            var cookiestring=RegExp(cookiename+"=[^;]+").exec(document.cookie);
-            // Return everything after the equal sign, or an empty string if the cookie name not found
-            return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
-        }
-
-        // console.log('cookie: ', getCook('test'));
-        if (getCook("err")) {
-                // console.log('flag');
-                alert("There is a problem with your NHS number");
-                document.cookie = "err=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        }
-
-        
-
-        function validatePostcode(postcode) {
-            postcode = postcode.replace(/\s/g, "");
-            const regex = /^[A-Z]{1,2}[0-9]{1,2}[A-Z]{0,1} ?[0-9][A-Z]{2}$/i;
-            // console.log(regex.test(postcode));
-            return regex.test(postcode);
-        }
-
-        function isValidDate(dateString) {
-            // console.log('checking date: ', dateString);
-            var regEx = /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/;
-            console.log('isValid result: ', dateString.match(regEx) != null)
-            return dateString.match(regEx) != null;
-        }
-
-
-    </script>
-    
-    <script>
-
-        function validateForm() {
-            let nhsNum = document.forms["newUser"]["nhsNumber"].value;
-            let postCode = document.forms["newUser"]["postCode"].value;
-            let date = document.forms["newUser"]["doB"].value;
-            console.log('date: ', date);
-            // console.log(getCook(nhsNum));
-
-            if ((isNaN(nhsNum)) || (nhsNum.toString().length < 10)) {
-                alert("NHS number should be 10-digits long");
-                return false;
-            }
-
-            if (getCook(nhsNum)) {
-                console.log('flag');
-                alert("There is a problem with your NHS number");
-                return false;
-            }
-
-            if (!validatePostcode(postCode)) {
-                alert("Postcode invalid");
-                return false;
-            }
-
-            if (!isValidDate(date)) {
-                alert("Please ensure date is formatted correctly (yyyy/mm/dd)")
-                return false;
-            }
-        } 
-
-    </script>
-
-    <script>
-        $( function() {
-            $( "#datepicker" ).datepicker(
-                {
-                    changeMonth: true,
-                    changeYear: true,
-                    yearRange: "-100:-0",
-                    dateFormat: 'yy/mm/dd'
-                }
-                    );
-            
-        } );
-    </script>
-
-    <div class="user-detail" id="user-form">
-        <h2>Tell us more</h2>
-        
-        <p id="details"></p>
-        <form id="newUser" onsubmit="return validateForm()" action="/loginTest/new" method="POST">
-            <!-- <label>Full Name</label>
-            <input type="text" placeholder="Enter First Name" name="fName" required>
-            <input type="text" placeholder="Enter Surname" name="lName" required> -->
-            <!-- <br>
-            <label>Email Address</label>
-            <input type="email" placeholder="Enter Email Address" name="email" required> -->
-            <input type="checkbox" required>
-            <a onclick="openModal()"><label>Terms and Conditions</label></a>
-            <br>
-            <label>Date of Birth*</label>
-            <!-- <input type="date" name="doB" required> -->
-            <input type="text" id="datepicker" name="doB" required>
-            <br>
-            <label>NHS Number*</label> 
-            <input type="text" placeholder="Enter NHS Number" name="nhsNumber" required>
-            <br>
-            <label>Sex:</label>
-            <label>Male</label>
-            <input type="radio" name="gender" value="M">
-            <label>Female</label>
-            <input type="radio" name="gender" value="F">
-            <br>
-            <label>Address 1*</label>
-            <input type="text" placeholder="Enter Street Address" name="address1" required>
-            <br>
-            <label>Address 2*</label>
-            <input type="text" placeholder="Enter Address Line 2" name="address2">
-            <br>
-            <label>City*</label>
-            <input type="city" placeholder="Enter City" name="townCity" required>
-            <br>
-            <label>Postcode*</label>
-            <input type="text" placeholder="Enter Postcode" name="postCode" required>
-            <br>
-            <br>
-            <input type='hidden' name='fName' value=<%= fName %>>
-            <input type='hidden' name='lName' value=<%= lName %>>
-            <input type='hidden' name='email' value=<%= email %>>
-            <input type='hidden' name='msalToken' value=<%= token %>>
-            
-            <button type="submit">Submit</button>
-            <!-- <button type="button" onclick="validateForm()">Validate</button> -->
-    </div> 
-
-    <div id="myModal" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-          <span class="close">&times;</span>
-          <p>By accepting these terms and conditions you consent for your data to be used by the CARE4CF trial. 
-              Your data will not be sold to any third parties and will not be passed to your clinic. </p>
-        </div>
       
-    </div>
+        <h1 style="margin-top: 9vh"><%= title %></h1>
+        <div>
+            <p><%= fName %> <%= lName %></p>
+            <p><%= email %></p>
+        </div>
 
-    <!-- <button id="myBtn">Open Modal</button> -->
+        <script>
+        
+            // console.log(document.cookie)
 
-    <script>
-        // Get the modal
-        var modal = document.getElementById("myModal");
+            function getCook(cookiename) {
+                // Get name followed by anything except a semicolon
+                var cookiestring=RegExp(cookiename+"=[^;]+").exec(document.cookie);
+                // Return everything after the equal sign, or an empty string if the cookie name not found
+                return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+            }
 
-        // Get the <span> element that closes the modal
-        var span = document.getElementsByClassName("close")[0];
+            // console.log('cookie: ', getCook('test'));
+            if (getCook("err")) {
+                    // console.log('flag');
+                    alert("There is a problem with your NHS number");
+                    document.cookie = "err=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            }
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
-            modal.style.display = "none";
-        }
+            
 
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
+            function validatePostcode(postcode) {
+                postcode = postcode.replace(/\s/g, "");
+                const regex = /^[A-Z]{1,2}[0-9]{1,2}[A-Z]{0,1} ?[0-9][A-Z]{2}$/i;
+                // console.log(regex.test(postcode));
+                return regex.test(postcode);
+            }
+
+            function isValidDate(dateString) {
+                // console.log('checking date: ', dateString);
+                var regEx = /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/;
+                console.log('isValid result: ', dateString.match(regEx) != null)
+                return dateString.match(regEx) != null;
+            }
+
+
+        </script>
+        
+        <script>
+
+            function validateForm() {
+                let nhsNum = document.forms["newUser"]["nhsNumber"].value;
+                let postCode = document.forms["newUser"]["postCode"].value;
+                let date = document.forms["newUser"]["doB"].value;
+                console.log('date: ', date);
+                // console.log(getCook(nhsNum));
+
+                if ((isNaN(nhsNum)) || (nhsNum.toString().length < 10)) {
+                    alert("NHS number should be 10-digits long");
+                    return false;
+                }
+
+                if (getCook(nhsNum)) {
+                    console.log('flag');
+                    alert("There is a problem with your NHS number");
+                    return false;
+                }
+
+                if (!validatePostcode(postCode)) {
+                    alert("Postcode invalid");
+                    return false;
+                }
+
+                if (!isValidDate(date)) {
+                    alert("Please ensure date is formatted correctly (yyyy/mm/dd)")
+                    return false;
+                }
+            } 
+
+        </script>
+
+        <script>
+            $( function() {
+                $( "#datepicker" ).datepicker(
+                    {
+                        changeMonth: true,
+                        changeYear: true,
+                        yearRange: "-100:-0",
+                        dateFormat: 'yy/mm/dd'
+                    }
+                        );
+                
+            } );
+        </script>
+
+        <div class="user-detail" id="user-form" style="margin-top: 6vh; letter-spacing: 0;"; >
+            <h2 style="margin-bottom: 1vh;">Tell us more</h2>
+            
+            <!-- <p id="details"></p> -->
+            <form id="newUser" onsubmit="return validateForm()" action="/loginTest/new" method="POST">
+                <!-- <label>Full Name</label>
+                <input type="text" placeholder="Enter First Name" name="fName" required>
+                <input type="text" placeholder="Enter Surname" name="lName" required> -->
+                <!-- <br>
+                <label>Email Address</label>
+                <input type="email" placeholder="Enter Email Address" name="email" required> -->
+                <table style="margin: auto">
+                    <tr>
+                        <th>
+                            <input type="checkbox" required>
+                        </th>
+                        <th style="height: 7vh;">
+                            <a onclick="openModal()"><label class="optionButton">Terms and Conditions</label></a>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label>Date of Birth:</label>
+                        </th>
+                        <th>
+                            <input type="text" id="datepicker" name="doB" required>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label>NHS Number:</label> 
+                        </th>
+                        <th>
+                            <input type="text" placeholder="Enter NHS Number" name="nhsNumber" required>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label>Sex:</label>
+                        </th>
+                        <th>
+                            <label>Male</label>
+                            <input type="radio" name="gender" value="M">
+                            &nbsp
+                            &nbsp
+                            <label>Female</label>
+                            <input type="radio" name="gender" value="F">
+                            <!-- <table>
+                                <tr>
+                                    <td>
+                                        <label>Male</label>
+                                    </td>
+                                    <td>
+                                        <label>Female</label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <input type="radio" name="gender" value="M">
+                                    </td>
+                                    <td>
+                                        <input type="radio" name="gender" value="F">
+                                    </td>
+                                    
+                                </tr>
+
+                            </table> -->
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label>Address 1:</label>
+                        </th>
+                        <th>
+                            <input type="text" placeholder="Enter Street Address" name="address1" required>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label>Address 2:</label>
+                        </th>
+                        <th>
+                            <input type="text" placeholder="Enter Address Line 2" name="address2">
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label>City:</label>
+                        </th>
+                        <th>
+                            <input type="city" placeholder="Enter City" name="townCity" required>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>
+                            <label>Postcode:</label>
+                        </th>
+                        <th>
+                            <input type="text" placeholder="Enter Postcode" name="postCode" required>
+                        </th>
+                    </tr>               
+                    <!-- <input type="date" name="doB" required> -->
+                    <input type='hidden' name='fName' value=<%= fName %>>
+                    <input type='hidden' name='lName' value=<%= lName %>>
+                    <input type='hidden' name='email' value=<%= email %>>
+                    <input type='hidden' name='msalToken' value=<%= token %>>
+                </table>
+                
+                <div id="navButtonContainer">
+                    <button class="navButton" style="margin-bottom: 3vh;" type="submit" value="Submit">
+                        <img src="../images/tickIcon.png" style="height: 100%">
+                    </button>
+                </div>
+                <!-- <button type="submit">Submit</button> -->
+                <!-- <button type="button" onclick="validateForm()">Validate</button> -->
+        </div> 
+
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+            <span class="close">&times;</span>
+            <p style="letter-spacing:0;margin-right:25px"><br>By accepting these terms and conditions you consent for your data to be used by the CARE4CF trial. 
+                Your data will not be sold to any third parties and will not be passed to your clinic. </p>
+            </div>
+        
+        </div>
+
+        <!-- <button id="myBtn">Open Modal</button> -->
+
+        <script>
+            // Get the modal
+            var modal = document.getElementById("myModal");
+
+            // Get the <span> element that closes the modal
+            var span = document.getElementsByClassName("close")[0];
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
                 modal.style.display = "none";
             }
-        }
 
-        function openModal() {
-            modal.style.display = "block";
-        }
-    </script>
-
-
-
-    
-    
-    
-        <!-- <pwa-auth id="auth" style="display: block"
-            microsoftkey="9b12a7f3-2f91-4e05-8bc2-2a1bc3c5a710">
-        </pwa-auth>
-
-        <script>
-            const pwaAuth = document.querySelector("pwa-auth");
-            pwaAuth.addEventListener("signin-completed", ev => {
-                const signIn = ev.detail;
-                if (signIn.error) {
-                    console.error("Sign in failed", signIn.error);
-                } else {
-                    // console.log("Email: ", signIn.email);
-                    // console.log("Name: ", signIn.name);
-                    // console.log("Picture: ", signIn.imageUrl);
-                    // console.log("Provider (MS, Google, FB): ", signIn.provider);
-                    console.log("Raw data from provider: ", signIn.providerData);
-                    console.log("Access token: ", ev.detail.providerData.accessToken);
-                    // console.log("Access token: ", signIn.accessToken);
-                    // console.log("Unique ID from MS: ", signIn.providerData.uniqueId);
-                    // console.log('name is type: ', typeof signIn.name);
-                    var name = signIn.name;
-                    // console.log(name.split(","));
-                    var lName = name.split(",")[0].trim();
-                    var fName = name.split(",")[1].trim();
-                    // console.log(fName);
-                    // console.log(lName);
-                    var email = signIn.email;
-                    document.getElementById("details").innerHTML = "Name: " + name + "<br> Email: " + email + "<br>";
-                    document.getElementById("user-form").style.display = "block";
-                    document.getElementById("fName").innerHTML += "<input type='hidden' name='fName' value=" + fName + ">";
-                    document.getElementById("lName").innerHTML += "<input type='hidden' name='lName' value=" + lName + ">";
-                    document.getElementById("email").innerHTML += "<input type='hidden' name='email' value=" + email + ">";
-                    // document.getElementById("check").innerHTML += "<input type='hidden' name='check' value=" + email + ">";
-                    // document.forms['checker'].submit();
-                    // document.getElementById("auth").style.display = "none";
-
-
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
                 }
-            });
-        </script>      -->
-     
+            }
 
-    
+            function openModal() {
+                modal.style.display = "block";
+            }
+        </script>
 
-    
-        <!-- <p>You are already logged in. Redirecting...</p>
-        <script>
-            setTimeout(function () {
-                window.location.href = "/"; //will redirect to your blog page (an ex: blog.html)
-            }  , 2000);
-        </script> -->
-    
 
-    <!-- <form action="/users/check" method="POST" name="checker">
-        <a id="check"></a>
-    </form> -->
-
-    <!-- <div class="user-detail" id="user-form" style='display: none'>
-        <h2>Tell us more</h2>
-        
-        <p id="details"></p>
-        <form action="/users/create" method="POST"> -->
-            <!-- <label>Full Name</label> -->
-            <!-- <input type="text" placeholder="Enter First Name" name="fName" required>
-            <input type="text" placeholder="Enter Surname" name="lName" required> -->
-            <!-- <br>
-            <label>Email Address</label>
-            <input type="email" placeholder="Enter Email Address" name="email" required> -->
-            <!-- <br>
-            <label>Date of Birth</label>
-            <input type="date" name="doB" required>
-            <br>
-            <label>NHS Number</label> 
-            <input type="text" placeholder="Enter NHS Number" name="nhsNumber" required>
-            <br>
-            <label>Gender</label>
-            <label>M</label>
-            <input type="radio" name="gender" value="M">
-            <label>F</label>
-            <input type="radio" name="gender" value="F">
-            <br>
-            <label>Address 1</label>
-            <input type="text" placeholder="Enter Street Address" name="address1" required>
-            <br>
-            <label>Address 2</label>
-            <input type="text" placeholder="Enter Address Line 2" name="address2" required>
-            <br>
-            <label>City</label>
-            <input type="city" placeholder="Enter City" name="townCity" required>
-            <br>
-            <label>Postcode</label>
-            <input type="text" placeholder="Enter Postcode" name="postCode" required>
-            <br>
-            <br>
-            <a id="fName"></a>
-            <a id="lName"></a>
-            <a id="email"></a>
-            <button type="submit">Submit</button>
-    </div> -->
-
+    </div>
   </body>

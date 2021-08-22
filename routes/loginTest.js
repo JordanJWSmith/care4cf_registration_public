@@ -13,7 +13,7 @@ router.get('/', function (req, res, next) {
     if (results.logIn) {
       res.redirect('/');
     } else {
-      res.render('loginTest', {title: 'Please sign in'})
+      res.render('loginTest', {title: 'CARE4CF'})
     }
   })
 })

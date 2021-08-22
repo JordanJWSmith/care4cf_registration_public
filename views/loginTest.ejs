@@ -6,44 +6,69 @@
         <link rel='stylesheet' href='/stylesheets/style.css' />
         <link rel="manifest" href="/manifest.json">
         <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaauth@latest/dist/pwa-auth.min.js"></script> 
+        <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
         <!-- <script type="module" src="/pwabuilder-sw-register.js"></script> -->
     </head>
     <body>
-        <h1><%= title %></h1>
-        <pwa-auth 
-        id="auth" style="display: block" microsoftkey="9b12a7f3-2f91-4e05-8bc2-2a1bc3c5a710">
-        </pwa-auth>
-
-        <script>
-            const pwaAuth = document.querySelector("pwa-auth");
-            pwaAuth.addEventListener("signin-completed", ev => {
-                const signIn = ev.detail;
-                if (signIn.error) {
-                    console.error("Sign in failed", signIn.error);
-                } else {
-                  var email = signIn.email;
-                  var name = signIn.name;
-                  var token = signIn.providerData.accessToken;
-                  // console.log("Access token: ", token);
-                  // console.log("Email: ", email);
-                  // console.log("Name: ", name);
-                  // console.log("providerData: ", signIn.providerData);
-                  document.cookie="accessToken=" + token;
-                  document.getElementById("email").innerHTML += "<input type='hidden' name='email' value='" + email + "'>";
-                  document.getElementById("token").innerHTML += "<input type='hidden' name='token' value='" + token + "'>";
-                  document.getElementById("name").innerHTML += "<input type='hidden' name='name' value='" + name + "'>";
-                  document.forms['checker'].submit();
-                }
-            })
-        </script>
-
-        <form action="/loginTest/verify" method="POST" name="checker">
-            <a id="email"></a>
-            <a id="token"></a>
-            <a id="name"></a>
-        </form>
+        <div class="container">
 
 
+            <div id="banner">
+                <div id="logo">
+                    <img style="height: 100%; opacity: 0.5" src="./images/uclLogo.svg">
+                </div>
+                <div id="logo">
+                    <img style="height: 100%" src="./images/msLogo.png">
+                </div>
+                <div id="logo">
+                    <img style="height: 100%; opacity: 0.5" src="./images/uclGOSLogo.png">
+                </div>
+                
+            </div>
+
+            <div style="margin-top: 25vh;" id="titleBox">
+                <h1><%= title %></h1>
+            </div>
+
+            <div id="navButtonContainer">
+                <div id="signIn" style="margin: 5vh">
+                    <pwa-auth 
+                    id="auth" style="display: block" microsoftkey="9b12a7f3-2f91-4e05-8bc2-2a1bc3c5a710">
+                    </pwa-auth>
+                </div>
+            </div>
+            
+
+            <script>
+                const pwaAuth = document.querySelector("pwa-auth");
+                pwaAuth.addEventListener("signin-completed", ev => {
+                    const signIn = ev.detail;
+                    if (signIn.error) {
+                        console.error("Sign in failed", signIn.error);
+                    } else {
+                    var email = signIn.email;
+                    var name = signIn.name;
+                    var token = signIn.providerData.accessToken;
+                    // console.log("Access token: ", token);
+                    // console.log("Email: ", email);
+                    // console.log("Name: ", name);
+                    // console.log("providerData: ", signIn.providerData);
+                    document.cookie="accessToken=" + token;
+                    document.getElementById("email").innerHTML += "<input type='hidden' name='email' value='" + email + "'>";
+                    document.getElementById("token").innerHTML += "<input type='hidden' name='token' value='" + token + "'>";
+                    document.getElementById("name").innerHTML += "<input type='hidden' name='name' value='" + name + "'>";
+                    document.forms['checker'].submit();
+                    }
+                })
+            </script>
+
+            <form action="/loginTest/verify" method="POST" name="checker">
+                <a id="email"></a>
+                <a id="token"></a>
+                <a id="name"></a>
+            </form>
+
+        </div>
 
 
     </body>

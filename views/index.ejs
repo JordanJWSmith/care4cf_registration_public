@@ -7,26 +7,68 @@
     <link rel="manifest" href="/manifest.json">
     <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaauth@latest/dist/pwa-auth.min.js"></script> 
     <!-- <script type="module" src="/pwabuilder-sw-register.js"></script> -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p> You have registered as <%= fName %>.</p>
+    <div class="container">
 
-    <script>
-      function deleteAllCookies() {
-        var cookies = document.cookie.split(";");
-        for (var i = 0; i < cookies.length; i++) {
-            var cookie = cookies[i];
-            var eqPos = cookie.indexOf("=");
-            var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-            document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+
+      <a style="position:absolute; height: 3vh; right: 2vw; top:2vh; cursor:pointer" onclick="openModal()">
+        <img id="hamburgerButton" src="./images/hamburgerDots.png" height="100%">
+      </a>
+
+      <div id="myModal" class="modal">
+
+          <!-- Modal content -->
+          <div class="modal-content">
+              <span class="close">&times;</span>
+              <p id="modalText" onclick="deleteAllCookies()">Log Out</p>
+          </div>
+      </div>
+      
+      <div style="width: 80%; margin: auto;">
+        <h1 style="margin-top: 30vh"><%= title %></h1>
+        <p> You have registered as <%= fName %>.</p>
+      </div>
+
+      <script>
+        function deleteAllCookies() {
+          var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i];
+              var eqPos = cookie.indexOf("=");
+              var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+              document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+          }
+          location.reload();
+        } 
+
+        var modal = document.getElementById("myModal");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
         }
-        location.reload();
-      } 
-    </script>
 
-    <button onclick="deleteAllCookies()">Log Out</button>
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
 
+        function openModal() {
+            modal.style.display = "block";
+        }
+      </script>
+
+      <!-- <button onclick="deleteAllCookies()">Log Out</button> -->
+
+      
+    </div>
     
   </body>
 </html>
