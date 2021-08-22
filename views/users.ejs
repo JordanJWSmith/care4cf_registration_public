@@ -95,6 +95,11 @@
                     alert("Please ensure date is formatted correctly (yyyy/mm/dd)")
                     return false;
                 }
+
+                if (!navigator.onLine) {
+                    alert("Please go online to register");
+                    return false
+                }
             } 
 
         </script>
