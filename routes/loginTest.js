@@ -20,9 +20,30 @@ router.get('/', function (req, res, next) {
 
 router.post('/verify', function(req, res, next) {
     const userDetails = req.body;
-    var email = userDetails.email;
-    var token = userDetails.token;
-    var name = userDetails.name;
+
+    if (typeof userDetails.email !== "string") {
+      var email = userDetails.email[0];
+    } else {
+      var email = userDetails.email;
+    }
+
+    if (typeof userDetails.token !== "string") {
+      var token = userDetails.token[0];
+    } else {
+      var token = userDetails.token;
+    }
+
+    if (typeof userDetails.name !== "string") {
+      var name = userDetails.name[0];
+    } else {
+      var name = userDetails.name;
+    }
+    
+    // var email = userDetails.email;
+    // var token = userDetails.token;
+    // var name = userDetails.name;
+
+    console.log('user details: ', userDetails);
 
     // var nhsNum = req.cookies.
     // var err = JSON.stringify(req.cookies.err);
@@ -45,8 +66,27 @@ router.post('/verify', function(req, res, next) {
         .then(res.redirect('/'));
       } else {
         // console.log('Create new user');
-        var lName = name.split(",")[0].trim();
-        var fName = name.split(",")[1].trim();
+        // console.log('name: ', name)
+        if (name) {
+          try {
+            if (name.indexOf(',') !== -1) {
+              var lName = name.split(",")[0].trim();
+              var fName = name.split(",")[1].trim();
+            } else {
+              var lName = name.split(" ")[1].trim();
+              var fName = name.split(" ")[0].trim();
+            }
+          }
+          catch {
+            var lName = 'Not given';
+            var fName = 'Not given';
+          }
+        } else {
+          var lName = 'Not given';
+          var fName = 'Not given';
+        }
+        // var lName = name.split(",")[0].trim();
+        // var fName = name.split(",")[1].trim();
         res.render('users', {
           title: 'Welcome', 
           email: email, 
