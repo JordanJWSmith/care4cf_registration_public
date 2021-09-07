@@ -17,7 +17,7 @@ module.exports = async function(cookieToken) {
         var data = [cookieToken];
         var results = await readData(checkLogin, data);
 
-        console.log('login results: ', results);
+        // console.log('login results: ', results);
         // console.log('query length: ', results.length);
         // console.log(results.length == 1);
 
@@ -26,14 +26,14 @@ module.exports = async function(cookieToken) {
             var findName = "SELECT fName FROM users WHERE userID = ?";
             var findNameValue = [userID];
             var nameResult = await readData(findName, findNameValue)
-            console.log('name: ', nameResult[0].fName);
+            // console.log('name: ', nameResult[0].fName);
             if (nameResult.length > 0) {
                 return {
                     logIn: true,
                     fName: nameResult[0].fName
                 }
             } else {
-                console.log('name not defined');
+                // console.log('name not defined');
                 return false;
             }
 

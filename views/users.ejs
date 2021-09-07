@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="manifest" href="/manifest.json">
-    <!-- <script type="module" src="/pwabuilder-sw-register.js"></script> -->
+    <script type="module" src="/pwabuilder-sw-register.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/@pwabuilder/pwaauth/dist/pwa-auth.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -75,13 +75,13 @@
                 console.log('date: ', date);
                 // console.log(getCook(nhsNum));
 
-                if ((isNaN(nhsNum)) || (nhsNum.toString().length < 10)) {
+                if ((isNaN(nhsNum)) || (nhsNum.toString().length !== 10)) {
                     alert("NHS number should be 10-digits long");
                     return false;
                 }
 
                 if (getCook(nhsNum)) {
-                    console.log('flag');
+                    // console.log('flag');
                     alert("There is a problem with your NHS number");
                     return false;
                 }
@@ -192,7 +192,7 @@
                             <label>Address 1:</label>
                         </th>
                         <th>
-                            <input type="text" placeholder="Enter Street Address" name="address1" required>
+                            <input type="text" placeholder="Enter Street Address" name="address1" maxlength="99" required>
                         </th>
                     </tr>
                     <tr>
@@ -200,7 +200,7 @@
                             <label>Address 2:</label>
                         </th>
                         <th>
-                            <input type="text" placeholder="Enter Address Line 2" name="address2">
+                            <input type="text" placeholder="Enter Address Line 2" name="address2" maxlength="99">
                         </th>
                     </tr>
                     <tr>
@@ -208,7 +208,7 @@
                             <label>City:</label>
                         </th>
                         <th>
-                            <input type="city" placeholder="Enter City" name="townCity" required>
+                            <input type="city" placeholder="Enter City" name="townCity" maxlength="99" required>
                         </th>
                     </tr>
                     <tr>
@@ -216,7 +216,7 @@
                             <label>Postcode:</label>
                         </th>
                         <th>
-                            <input type="text" placeholder="Enter Postcode" name="postCode" required>
+                            <input type="text" placeholder="Enter Postcode" name="postCode" maxlength="10" required>
                         </th>
                     </tr>               
                     <!-- <input type="date" name="doB" required> -->

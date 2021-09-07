@@ -2,8 +2,10 @@ var readData = require('./readData');
 
 module.exports = async function(email) {
 
-    if ( (typeof email !== "string")) {
-        return false           
+    if ( (typeof email !== "string") ) {
+        return {
+            logIn: false  
+        }         
     } else {
 
         // var checkLogin = 'SELECT * FROM users WHERE email = "' + email + '"';
