@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
     if (results.logIn) {
       res.render('index', {title: 'Thank you for registering.', fName: results.fName})
     } else {
-      res.redirect('/loginTest')
+      res.redirect('/loginUser')
     }
   })
 

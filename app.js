@@ -19,7 +19,7 @@ var favicon = require('serve-favicon');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var loginTestRouter = require('./routes/loginTest');
+var loginUserRouter = require('./routes/loginUser');
 var backRouter = require('./routes/back');
 
 var app = express();
@@ -41,7 +41,7 @@ app.use(favicon(path.join(__dirname,'public','images','favicon.ico')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/loginTest', loginTestRouter);
+app.use('/loginUser', loginUserRouter);
 app.use('/back', backRouter);
 
 // catch 404 and forward to error handler
