@@ -1,5 +1,5 @@
 # care4cf_reg
-This is a registration app for the CARE4CF trial, and is a necessary step for accessing the [CARE4CF logging app](https://care4cf.azurewebsites.net/).
+This is a registration app for the CARE4CF trial. It is necessary to register before accessing the [CARE4CF logging app](https://care4cf.azurewebsites.net/).
 
 Sign in with your Microsoft credentials and register your details. These are saved in a private Azure database. 
 
