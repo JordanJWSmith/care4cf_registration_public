@@ -1,5 +1,6 @@
 var readData = require('./readData');
 
+// Check whether the submitted NHSNumber already exists in the DB
 module.exports = async function(nhsNum) {
 
     if ((typeof nhsNum !== "string") || (nhsNum.length !== 10)) {

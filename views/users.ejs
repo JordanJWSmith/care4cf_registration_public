@@ -31,7 +31,6 @@
 
         <script>
         
-            // console.log(document.cookie)
 
             function getCook(cookiename) {
                 // Get name followed by anything except a semicolon
@@ -40,9 +39,7 @@
                 return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
             }
 
-            // console.log('cookie: ', getCook('test'));
             if (getCook("err")) {
-                    // console.log('flag');
                     alert("There is a problem with your NHS number");
                     document.cookie = "err=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             }
@@ -52,12 +49,10 @@
             function validatePostcode(postcode) {
                 postcode = postcode.replace(/\s/g, "");
                 const regex = /^[A-Z]{1,2}[0-9]{1,2}[A-Z]{0,1} ?[0-9][A-Z]{2}$/i;
-                // console.log(regex.test(postcode));
                 return regex.test(postcode);
             }
 
             function isValidDate(dateString) {
-                // console.log('checking date: ', dateString);
                 var regEx = /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/;
                 console.log('isValid result: ', dateString.match(regEx) != null)
                 return dateString.match(regEx) != null;
@@ -73,7 +68,6 @@
                 let postCode = document.forms["newUser"]["postCode"].value;
                 let date = document.forms["newUser"]["doB"].value;
                 console.log('date: ', date);
-                // console.log(getCook(nhsNum));
 
                 if ((isNaN(nhsNum)) || (nhsNum.toString().length !== 10)) {
                     alert("NHS number should be 10-digits long");
@@ -81,7 +75,6 @@
                 }
 
                 if (getCook(nhsNum)) {
-                    // console.log('flag');
                     alert("There is a problem with your NHS number");
                     return false;
                 }
@@ -121,14 +114,7 @@
         <div class="user-detail" id="user-form" style="margin-top: 6vh; letter-spacing: 0;"; >
             <h2 style="margin-bottom: 1vh;">Tell us more</h2>
             
-            <!-- <p id="details"></p> -->
             <form id="newUser" onsubmit="return validateForm()" action="/loginUser/new" method="POST">
-                <!-- <label>Full Name</label>
-                <input type="text" placeholder="Enter First Name" name="fName" required>
-                <input type="text" placeholder="Enter Surname" name="lName" required> -->
-                <!-- <br>
-                <label>Email Address</label>
-                <input type="email" placeholder="Enter Email Address" name="email" required> -->
                 <table style="margin: auto">
                     <tr>
                         <th>
@@ -165,26 +151,7 @@
                             &nbsp
                             <label>Female</label>
                             <input type="radio" name="gender" value="F">
-                            <!-- <table>
-                                <tr>
-                                    <td>
-                                        <label>Male</label>
-                                    </td>
-                                    <td>
-                                        <label>Female</label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="radio" name="gender" value="M">
-                                    </td>
-                                    <td>
-                                        <input type="radio" name="gender" value="F">
-                                    </td>
-                                    
-                                </tr>
-
-                            </table> -->
+                           
                         </th>
                     </tr>
                     <tr>
@@ -219,7 +186,6 @@
                             <input type="text" placeholder="Enter Postcode" name="postCode" maxlength="10" required>
                         </th>
                     </tr>               
-                    <!-- <input type="date" name="doB" required> -->
                     <input type='hidden' name='fName' value=<%= fName %>>
                     <input type='hidden' name='lName' value=<%= lName %>>
                     <input type='hidden' name='email' value=<%= email %>>
@@ -231,8 +197,7 @@
                         <img src="../images/tickIcon.png" style="height: 100%">
                     </button>
                 </div>
-                <!-- <button type="submit">Submit</button> -->
-                <!-- <button type="button" onclick="validateForm()">Validate</button> -->
+
         </div> 
 
         <div id="myModal" class="modal">

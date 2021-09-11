@@ -6,6 +6,7 @@ const newUser = require('./newUser');
 const updateToken = require('./updateToken');
 var userExists = require('./userExists');
 
+// Display the login page if not logged in
 router.get('/', function (req, res, next) {
   var cookieToken = req.cookies.accessToken;
   login(cookieToken)
@@ -18,6 +19,7 @@ router.get('/', function (req, res, next) {
   })
 })
 
+// Receive login data
 router.post('/verify', function(req, res, next) {
     const userDetails = req.body;
 
@@ -38,35 +40,17 @@ router.post('/verify', function(req, res, next) {
     } else {
       var name = userDetails.name;
     }
-    
-    // var email = userDetails.email;
-    // var token = userDetails.token;
-    // var name = userDetails.name;
 
-    console.log('user details: ', userDetails);
-
-    // var nhsNum = req.cookies.
-    // var err = JSON.stringify(req.cookies.err);
-    // res.clearCookie('err');
-
-    // if (err) {
-    //   var err = true;
-    // } else {
-    //   var err = false;
-    // }
-    
+    // Check to see if the user already exists in the DB
     userExists(email)
     .then(function(results) {
-      // console.log(' userExists results (should be false):',  results)
       if (results.logIn) {
-        // console.log('Updating token');
-        // console.log('userID: ', results.userID);
         var userID = results.userID;
+
+        // Update the user's accessToken
         updateToken(token, email, userID)
         .then(res.redirect('/'));
       } else {
-        // console.log('Create new user');
-        // console.log('name: ', name)
         if (name) {
           try {
             if (name.indexOf(',') !== -1) {
@@ -85,37 +69,34 @@ router.post('/verify', function(req, res, next) {
           var lName = 'Not given';
           var fName = 'Not given';
         }
-        // var lName = name.split(",")[0].trim();
-        // var fName = name.split(",")[1].trim();
         res.render('users', {
           title: 'Welcome', 
           email: email, 
           lName: lName, 
           fName: fName, 
           token: token, 
-          // err: err
         });
       }
     })
-    // userExists().then()if userExists, updateToken and redirect to index.
-    // if userNotExists, redirect to /new
 
 });
 
+
+// Save a new user
 router.post('/new', async function(req, res, next) {
   const userDetails = req.body;
-  // console.log('userDetails: ', userDetails);
   var nhsNum = userDetails.nhsNumber;
+
+  // Check the NHSNumber is unique
   await checkNHSNum(nhsNum)
   .then(async function(nhsResults) {
-    // console.log('nhs num check: ', nhsResults);
-    // res.send(JSON.stringify(nhsResults));
     if (nhsResults) {
-      // console.log('adding new user');
+
+      // Save the new user
       await newUser(userDetails)
       .then(async function(newUserResult) {
-        // console.log('newUserResult: ', newUserResult);
-        // console.log('updating token');
+
+        // Update their accessToken
         await updateToken(userDetails.msalToken, userDetails.email, newUserResult)
       })
       .then(function() {
