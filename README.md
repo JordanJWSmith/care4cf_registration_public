@@ -9,3 +9,6 @@ This is a registration app for the CARE4CF trial. It is necessary to register be
 Sign in with your Microsoft credentials and register your details. These are saved in a private Azure database. 
 
 This app is currently hosted [here](https://care4cf-register.azurewebsites.net/). Visiting the logging app without registering first will redirect you to the registration site. 
+
+## Credits
+This project was developed solely by Jordan Smith for Microsoft and Great Ormond Street Institute for Child Health as part of the MSc Computer Science degree at UCL.
