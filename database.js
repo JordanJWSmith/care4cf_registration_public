@@ -1,10 +1,10 @@
 var mysql = require('mysql');
 
 var conn = mysql.createPool({
-    host: 'care4cf-db.mysql.database.azure.com',  // insert database host server here
-    user: 'ucabjjw@care4cf-db',  // insert database username here
-    password: 'Jordan2016Smith',  // insert database password here
-    database: 'care4cf_private',  
+    host: 'HOSTNAME',  // insert database host server here
+    user: 'USERNAME',  // insert database username here
+    password: 'PASSWORD',  // insert database password here
+    database: 'DB_NAME',  
     port: 3306,
     ssl: true,
     multipleStatements: true

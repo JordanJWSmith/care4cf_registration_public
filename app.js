@@ -5,16 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var favicon = require('serve-favicon'); 
 
-// const { auth } = require('express-openid-connect');
-
-// const config = { 
-//   authRequired: false,
-//   auth0Logout: true,
-//   secret: 'a long, randomly-generated string stored in env',
-//   baseURL: 'http://localhost:3000', 
-//   clientID: 'C9KKH1AiPUrNUiqVL1nBUGfsMrsyCPyX',
-//   issuerBaseURL: 'https://dev-594gtbd6.us.auth0.com'
-// };
 
 
 var indexRouter = require('./routes/index');
@@ -60,8 +50,5 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// app.get('/', (req, res) => {
-//   res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out')
-// });
 
 module.exports = app;
